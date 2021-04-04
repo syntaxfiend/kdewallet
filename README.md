@@ -50,15 +50,13 @@ other_pw = my_wallet.get_entry('frank', 'gmail', 'personal')
 function_that_needs_password(other_pw)
 ```
 
-Currently the code isn't looking much better than this readme, but the core tests are passing
+This could use a bit more work still, but the core tests are passing
 most functionality seems to be working well enough for now. Not sure why I went mad with the
 alternate syntax styles but ya gotta have fun sometimes I guess.
 
-So currently my todos for this project are:
-- improve doc comments
-- increase test coverage
-- eliminate redundant subprocess calls
+Currently my todos for this project are:
+- find if there is a more secure way to pass pw to kwallet-query than printf
+- add defult wallet/folder support to object access
 - make it clearer whats happening with properties
-- do something about the static methods
-- unify the usage of default arguments
-- make betterer 
+- write more rigorous tests
+

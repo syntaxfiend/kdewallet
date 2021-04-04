@@ -1,5 +1,5 @@
 import unittest
-from kwallet import KDEWallet as KW
+from kwallet2 import KDEWallet as KW
 from subprocess import getstatusoutput as cmd
 """
 these tests assume
@@ -9,10 +9,6 @@ one like this
     folder name: test
     entry name : test
 
-and one like This
-    wallet name: onetest
-    folder name: twotest
-    entry name : threetest
 """
 bw = 'bad wallet name'
 gw = 'test'
@@ -31,31 +27,21 @@ class WalletInitTests(unittest.TestCase):
     """
 
     def test_wallet(s):
-        s.assertRaises(AE, KW, bw)
         s.assertIsInstance(KW(gw), KW)
 
     def test_folder(s):
-        s.assertRaises(AE, KW, gw, bf)
-        s.assertRaises(AE, KW, bw, gf)
-        s.assertRaises(AE, KW, bw, bf)
         s.assertIsInstance(KW(gw, gf), KW)
 
 class WalletAccessTests(unittest.TestCase):
     def test_access(s):
-        with s.assertRaises(AE) as err:
-            KW.devnull
-        with s.assertRaises(AE):
-            KW.test.devnull
-        with s.assertRaises(AE):
-            KW.test.test.devnull
-
         s.assertIsInstance(KW.test, KW)
         s.assertIsInstance(KW.test.test, KW)
         s.assertIsInstance(KW['test'], KW)
         s.assertIsInstance(KW['test']['test'], KW)
         s.assertIsInstance(KW['test'].test, KW)
         s.assertIsInstance(KW.test['test'], KW)
-
+        s.assertIsInstance(KW().test, KW)
+        
         s.assertEqual(KW.test.test.test, gv)
         s.assertEqual(KW.test.test['test'], gv)
         s.assertEqual(KW.test['test'].test, gv)
@@ -65,13 +51,9 @@ class WalletAccessTests(unittest.TestCase):
         s.assertEqual(KW['test']['test'].test, gv)
         s.assertEqual(KW['test']['test']['test'], gv)
 
-        with s.assertRaises(AE):
-            KW[bw]
-        with s.assertRaises(AE):
-            KW[gw][bf]
+
         with s.assertRaises(AE):
             KW[gw][gf][be]
-
 
 
 class WalletSetTests(unittest.TestCase):
@@ -90,19 +72,13 @@ class WalletSetTests(unittest.TestCase):
         with s.assertRaises(AE):
             KW('test').set_entry('yamosh', 'fake_val', folder='test')
 
+
 class WalletExtraTests(unittest.TestCase):
     def test_get_entries(s):
         with s.assertRaises(AE):
             KW('test').get_entries(folder=bf)
         s.assertEqual(KW.test.get_entries(folder=gf), ['test','test3'])
 
-    def test_iswallet(s):
-        s.assertFalse(KW.iswallet(bw))
-        s.assertTrue(KW.iswallet(gw))
-
-    def test_isentry(s):
-        s.assertFalse(KW.isentry(be, gf, gw))
-        s.assertTrue(KW.isentry(ge, gf, gw))
 
 def suite():
     suite = unittest.TestSuite()
