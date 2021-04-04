@@ -8,7 +8,7 @@ FOLDER = 'Passwords'
 output_attrs = namedtuple('Output', ('code', 'msg'))
 cmd = lambda bash_cmd: output_attrs(*getstatusoutput(bash_cmd))
 
-class DynamicAttribute(type):
+class _DynamicAttribute(type):
     """
     this allows the inheriting class to
     return an initialized instance of itself
@@ -19,7 +19,7 @@ class DynamicAttribute(type):
         return cls(key)
 
 
-class KDEWallet(metaclass=DynamicAttribute):
+class KDEWallet(metaclass=_DynamicAttribute):
     wallet_err = rcompile('Wallet .* not found')
     folder_err = rcompile('The folder .* does not exist!')
     entry_err  = rcompile('Failed to read entry .* value from the .* wallet.')

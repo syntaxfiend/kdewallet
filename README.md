@@ -3,9 +3,14 @@ It was made to be flexible you can use whichever syntax suites your fancy
 the way that kde structures their password storage is
 wallet name -> folder name -> entry name  
 
+you can install this package via PyPI
+```
+pip install kdewallet
+```
+
 this module can be used in 3 ways here's a quick overview
 ```
-from kdewallet import KDEWallet
+from kdewallet.kdewallet import KDEWallet
 my_pw = KDEWallet.wallet.folder.entry
 my_pw = KDEWallet[wallet][folder][entry]
 # or mix n match
@@ -43,7 +48,7 @@ personal  # wallet 2
 
 so given that setup of data some examples of how you might use this would be as follows
 ```
-from kdewallet import KDEWallet
+from kdewallet.kdewallet import KDEWallet
 my_wallet = KDEWallet(wallet='work')
 my_pw = my_wallet.get_entry(entry='root', folder='servera')
 function_that_needs_password(my_pw)
