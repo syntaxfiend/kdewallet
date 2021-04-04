@@ -2,14 +2,15 @@ This is a simple project that wraps the `kwallet-query` command.
 It was made to be flexible you can use whichever syntax suites your fancy
 the way that kde structures their password storage is
 wallet name -> folder name -> entry name  
-so for example we'll assume we have two wallets each having two folders with two entries  
-
 
 this module can be used in 3 ways here's a quick overview
 ```
 from kdewallet import KDEWallet
 my_pw = KDEWallet.wallet.folder.entry
 my_pw = KDEWallet[wallet][folder][entry]
+# or mix n match
+my_pw = KDEWallt[wallet].folder.[entry]
+
 
 # these are the more procedural style options
 my_pw = KDEWallet(wallet, folder).get_entry(entry)
